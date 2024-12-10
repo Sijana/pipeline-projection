@@ -162,11 +162,20 @@ class FlexibleRecruitmentPipelineTool:
         historical_fig = px.line(
             historical_df, 
             x='Year', 
-            y=stages[1:],  # Skip first stage (Applications)
-            title='Historical Recruitment Pipeline',
+            y=stages,
+            title='Recruitment Pipeline Changes Over Time',
             labels={'value': 'Number of Candidates', 'variable': 'Stage'}
         )
         
+        # Update x-axis to show every 1 year
+        historical_fig.update_xaxes(
+            tick0=historical_df['Year'].min(), # Starting point for the ticks
+            dtick=1 # Interval between ticks (1 year)
+            )
+
+        historical_fig.update_yaxes(
+            dtick=200 # Interval between ticks (1 year)
+            )
         # Projection Bar Chart
         projection_df = pd.DataFrame([projection])
         projection_df = projection_df.drop('Conversion Rates', axis=1)
@@ -189,7 +198,7 @@ class FlexibleRecruitmentPipelineTool:
     
     def run(self):
         """Main application runner"""
-        st.title("Flexible Recruitment Pipeline Projection Tool")
+        st.title("Recruitment Pipeline Projection Tool")
         
         # Configure stages
         stages = self.configure_stages()
