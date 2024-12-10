@@ -174,7 +174,9 @@ class FlexibleRecruitmentPipelineTool:
             )
 
         historical_fig.update_yaxes(
-            dtick=200 # Interval between ticks (1 year)
+            dtick=200,
+            tickcolor="white",
+            gridcolor = "grey"
             )
         # Projection Bar Chart
         projection_df = pd.DataFrame([projection])
@@ -194,6 +196,11 @@ class FlexibleRecruitmentPipelineTool:
             labels={'Candidates': 'Number of Candidates'}
         )
         
+        projection_fig.update_yaxes(
+            tickcolor="white",
+            gridcolor = "grey"
+            )
+
         return historical_fig, projection_fig
     
     def run(self):
